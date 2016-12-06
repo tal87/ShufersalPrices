@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html dir="rtl">
+
+<head>
+    <title>Prices Comparison</title>
+    <meta charset="utf-8">
+    <style>
+        li {
+            margin-top: 10px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="parser.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#searchProd').keyup(function() {
+                var txt = $(this).val();
+                var possibleProds = [];
+                if (txt.length > 0) {
+                    for (var i = 0; i < products.length; i++) {
+                        if (products[i].Name.indexOf(txt) != -1 || products[i].Brand.indexOf(txt) != -1 || products[i].Code.indexOf(txt) != -1) {
+                            var score = calcScore(txt, products[i]);
+                            possibleProds.push({
+                                Product: products[i],
+                                Score: score
+                            });
+                        }
+                    }
+                }
+
+                possibleProds.sort(function(prod1, prod2) {
+                    return prod2.Score - prod1.Score;
+                });
+
+                var prodsToUse = [];
+                // max number of 10 products
+                var foundExact = false;
+                for (var i = 0; i < possibleProds.length && prodsToUse.length < 11; i++) {
+                    if (foundExact) {
+                        if (possibleProds[i].Score == 100) {
+                            prodsToUse.push(possibleProds[i].Product);
+                        }
+                    } else {
+                        prodsToUse.push(possibleProds[i].Product);
+                    }
+                }
+
+                if (prodsToUse.length > 0) {
+                    var htmlToAppend = '<ul>'
+                    for (var i = 0; i < prodsToUse.length; i++) {
+                        htmlToAppend += '<li>' + prodsToUse[i].Name + ' ' + prodsToUse[i].Price + '</li>';
+                    }
+
+                    htmlToAppend += '</ul>';
+                    $('#results').html(htmlToAppend);
+                } else {
+                    $('#results').html('');
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div style="text-align: center;">
+        <!--<input style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="בחר חנות...">
+        <br>
+        <br>-->
+        <input id="searchProd" style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="חפש מוצר..." disabled>
+    </div>
+    <div id="results" style="text-align: right;">
+    </div>
+</body>
+
+</html>
