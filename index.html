@@ -17,6 +17,7 @@
                 var txt = $(this).val();
                 var possibleProds = [];
                 if (txt.length > 0) {
+                    // getting the score for each product
                     for (var i = 0; i < products.length; i++) {
                         if (products[i].Name.indexOf(txt) != -1 || products[i].Brand.indexOf(txt) != -1 || products[i].Code.indexOf(txt) != -1) {
                             var score = calcScore(txt, products[i]);
@@ -28,6 +29,7 @@
                     }
                 }
 
+                // sort the products by score
                 possibleProds.sort(function(prod1, prod2) {
                     return prod2.Score - prod1.Score;
                 });
@@ -45,6 +47,7 @@
                     }
                 }
 
+                // displaying the products as a list
                 if (prodsToUse.length > 0) {
                     var htmlToAppend = '<ul>'
                     for (var i = 0; i < prodsToUse.length; i++) {
@@ -60,16 +63,14 @@
         });
     </script>
 </head>
-
-<body>
-    <div style="text-align: center;">
-        <!--<input style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="בחר חנות...">
-        <br>
-        <br>-->
-        <input id="searchProd" style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="חפש מוצר..." disabled>
-    </div>
-    <div id="results" style="text-align: right;">
-    </div>
-</body>
-
+    <body>
+        <div style="text-align: center;">
+            <!--<input style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="בחר חנות...">
+            <br>
+            <br>-->
+            <input id="searchProd" style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="חפש מוצר..." disabled>
+        </div>
+        <div id="results" style="text-align: right;">
+        </div>
+    </body>
 </html>

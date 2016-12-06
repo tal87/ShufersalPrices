@@ -1,5 +1,6 @@
 var products = [];
 $.ajax('http://67.205.130.49:3000', {
+    // get all the products and store them in a list
     success: function(data) {
         var xml = $.parseXML(data);
         var items = xml.children[0].children[5].children;
@@ -18,6 +19,7 @@ $.ajax('http://67.205.130.49:3000', {
     }
 });
 
+// calculate a score for a product based on a search term
 function calcScore(txt, product) {
     var score = -1000;
     var txtInNameIdx = product.Name.indexOf(txt);
