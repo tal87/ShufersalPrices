@@ -8,6 +8,10 @@
         li {
             margin-top: 10px;
         }
+        
+        .prod {
+            color: blue;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
     <script src="parser.js"></script>
@@ -61,11 +65,15 @@
                 if (prodsToUse.length > 0) {
                     var htmlToAppend = '<ul>'
                     for (var i = 0; i < prodsToUse.length; i++) {
-                        htmlToAppend += '<li>' + prodsToUse[i].Name + ' ' + prodsToUse[i].Price + '</li>';
+                        htmlToAppend += '<a href="#" class="prod" id="' + prodsToUse[i].Code + '"><li>' + prodsToUse[i].Name + ' ' + prodsToUse[i].Price + '</li></a>';
                     }
 
                     htmlToAppend += '</ul>';
                     $('#results').html(htmlToAppend);
+                    $('.prod').unbind('click');
+                    $('.prod').click(function(){
+                        $('#results').animate( { height: '0px' }, 500);
+                    });
                 } else {
                     $('#results').html('');
                 }
@@ -78,6 +86,9 @@
             <input id="searchProd" style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="חפש מוצר..." disabled>
         </div>
         <div id="results" style="text-align: right;">
+        </div>
+        <div id="selectedProduct" style="display: none;">
+            <hr>
         </div>
     </body>
 </html>
