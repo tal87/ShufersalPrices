@@ -1,5 +1,7 @@
 var products = [];
-$.ajax('http://67.205.130.49:3000', {
+var test = 'http://localhost:3000';
+var production = 'http://67.205.130.49:3000';
+$.ajax(test, {
     // get all the products and store them in a list
     success: function(data) {
         var xml = $.parseXML(data);
