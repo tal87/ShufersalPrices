@@ -1,7 +1,7 @@
 var products = [];
 var test = 'http://localhost:3000';
 var production = 'http://67.205.130.49:3000';
-$.ajax(test, {
+$.ajax(production, {
     // get all the products and store them in a list
     success: function(data) {
         var xml = $.parseXML(data);
@@ -33,7 +33,7 @@ function calcScore(txt, product) {
         score = 5;
 //        score = txt.length;
         score -= txt.length;
-        if(txtInNameIdx == 0){
+        if(txtInNameIdx === 0){
             score += 20;
         }
         
