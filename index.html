@@ -19,6 +19,10 @@
                 if (txt.length > 0) {
                     // getting the score for each product
                     for (var i = 0; i < products.length; i++) {
+                        if(products[i].Code === '72991374' || products[i].Code === '7290005431609'){
+                            console.log('testing...');    
+                        }
+                        
                         if (products[i].Name.indexOf(txt) != -1 || products[i].Brand.indexOf(txt) != -1 || products[i].Code.indexOf(txt) != -1) {
                             var score = calcScore(txt, products[i]);
                             possibleProds.push({
@@ -30,8 +34,14 @@
                 }
 
                 // sort the products by score
+                // if the score is similar, put the product with the shorter name first
                 possibleProds.sort(function(prod1, prod2) {
-                    return prod2.Score - prod1.Score;
+                    var ret = prod2.Score - prod1.Score;
+                    if(ret == 0){
+                        ret = prod1.Product.Name.length - prod2.Product.Name.length;
+                    }
+                    
+                    return ret;
                 });
 
                 var prodsToUse = [];
@@ -65,9 +75,6 @@
 </head>
     <body>
         <div style="text-align: center;">
-            <!--<input style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="בחר חנות...">
-            <br>
-            <br>-->
             <input id="searchProd" style="width: 700px; letter-spacing: 1px; padding: 10px; font-weight: bold; font-family: arial; font-size: 15px; outline: none; height: 30px; text-align: right; border-top: none; border-bottom: 1px #3FB6B6 solid; border-right: none; border-left: none;" placeholder="חפש מוצר..." disabled>
         </div>
         <div id="results" style="text-align: right;">
