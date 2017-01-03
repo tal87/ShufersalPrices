@@ -36,7 +36,7 @@ function calcScore(txt, product) {
         if(txtInNameIdx === 0){
             score += 20;
         }
-        
+
         if (txt.indexOf(product.Brand) > -1) {
             // has brand
             score += 20;
@@ -45,3 +45,5 @@ function calcScore(txt, product) {
 
     return score;
 }
+
+var newVar;
